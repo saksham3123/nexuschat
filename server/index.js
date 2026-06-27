@@ -10,6 +10,7 @@ const { connectRedis } = require('./config/redis');
 const authRoutes = require('./routes/auth');
 const messageRoutes = require('./routes/messages');
 const roomRoutes = require('./routes/rooms');
+const userRoutes = require('./routes/users');
 const initSocket = require('./socket');
 
 const app = express();
@@ -35,6 +36,7 @@ app.use(morgan('dev'));
 app.use('/api/auth', authRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/rooms', roomRoutes);
+app.use('/api/users', userRoutes);
 
 app.get('/health', (req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 

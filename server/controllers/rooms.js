@@ -68,3 +68,16 @@ exports.joinRoom = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// GET /api/rooms/browse — all group rooms (for discovery/join)
+exports.browseRooms = async (req, res) => {
+  try {
+    const rooms = await Room.find({ type: 'group' })
+      .populate('members', 'username avatar isOnline')
+      .populate('admins', 'username')
+      .sort({ updatedAt: -1 });
+    res.json(rooms);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
